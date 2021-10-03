@@ -2,12 +2,14 @@ import React, {useState, useEffect} from "react";
 import Preloader from "./Preloader";
 import GoodsList from './GoodsList';
 import Cart from './Cart';
+import BasketList from './BasketList';
 import {API_KEY, API_URL} from '../config';
 
 export default function Shop(props) {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+  const [isBasketVisible, setBasketVisible] = useState(false);
 
   const addToCart = (item) => {
     // const itemIndex = order.findIndex(elem => elem.id === item.id);
@@ -31,6 +33,15 @@ export default function Shop(props) {
     setOrder(newOrder);
   }
 
+  const removeFromCart = (itemID) => {
+    const newOrder = order.filter(item => item.id !== itemID);
+    setOrder(newOrder);
+  }
+
+  const handleBasketVisibility = () => {
+    setBasketVisible(!isBasketVisible);
+  }
+
   useEffect(function GetInitialGoods() {
     fetch(API_URL, {
       headers: {
@@ -45,8 +56,14 @@ export default function Shop(props) {
 
   return (
     <main className='container content'>
-      <Cart quantity={order.length}/>
-      {loading ? <Preloader /> : <GoodsList goods={goods} addToCart={addToCart}/>}
+      <Cart quantity={order.length} handleBasketVisibility={handleBasketVisibility}/>
+      {loading ? <Preloader /> : <GoodsList goods={goods} addToCart={addToCart} />}
+      {isBasketVisible && (
+        <BasketList
+          order={order}
+          handleBasketVisibility={handleBasketVisibility}
+          removeFromCart={removeFromCart} />
+      )}
     </main>
   )
 }
