@@ -54,6 +54,15 @@ nav {
   z-index: 2;
 }
 
+.collection-item_flexed {
+  display: flex;
+  justify-content: space-between;
+}
+
+.quantity-btns i:not(:last-child) {
+  margin-right: 10px;
+}
+
 @media (min-width: 768px) {
   .cart {
     top: 5rem;

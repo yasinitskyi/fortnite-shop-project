@@ -33,6 +33,23 @@ export default function Shop(props) {
     setOrder(newOrder);
   }
 
+  const removeQuantity = (id) => {
+    const newOrder = [...order];
+    const itemIndex = newOrder.findIndex((elem) => elem.id === id);
+    newOrder[itemIndex] = {
+      ...newOrder[itemIndex],
+      quantity: newOrder[itemIndex].quantity === 1 ? newOrder[itemIndex].quantity : newOrder[itemIndex].quantity - 1
+    };
+    setOrder(newOrder);
+  }
+
+  const addQuantity = (id) => {
+    const newOrder = [...order];
+    const itemIndex = newOrder.findIndex((elem) => elem.id === id);
+    newOrder[itemIndex] = { ...newOrder[itemIndex], quantity: newOrder[itemIndex].quantity + 1 };
+    setOrder(newOrder);
+  }
+
   const removeFromCart = (itemID) => {
     const newOrder = order.filter(item => item.id !== itemID);
     setOrder(newOrder);
@@ -62,7 +79,10 @@ export default function Shop(props) {
         <BasketList
           order={order}
           handleBasketVisibility={handleBasketVisibility}
-          removeFromCart={removeFromCart} />
+          removeFromCart={removeFromCart}
+          addQuantity={addQuantity}
+          removeQuantity={removeQuantity}
+        />
       )}
     </main>
   )
