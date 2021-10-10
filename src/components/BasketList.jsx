@@ -13,6 +13,8 @@ export default function BasketList(props) {
     return price + el.heal * el.quantity;
   }, 0);
   return (
+    <>
+    <div class="overlay"></div>
     <ul className="collection collection_overlayed">
       <div className="close-icon" onClick={handleBasketVisibility}><i class="white material-icons">close</i></div>
       <li className="collection-item active">Basket</li>
@@ -27,5 +29,6 @@ export default function BasketList(props) {
       )) : <li className="collection-item">Nothing here</li>}
       <li className="collection-item active">Sum price: {totalPrice}$</li>
     </ul>
+    </>
   )
 }
