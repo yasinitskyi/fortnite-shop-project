@@ -27,7 +27,7 @@ export default function BasketList(props) {
           removeQuantity={removeQuantity}
         />
       )) : <li className="collection-item">Nothing here</li>}
-      <li className="collection-item active">Sum price: {totalPrice}$</li>
+      <li className="collection-item active">Sum price: {totalPrice}$ <button className="right btn">Place</button></li>
     </ul>
     </>
   )
